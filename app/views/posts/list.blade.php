@@ -19,4 +19,7 @@
         @endforeach
     </tbody>
 </table>
-{{$posts->links()}}
+
+@if($posts->count() > 10)
+    {{$posts->links()}}
+@endif

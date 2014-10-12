@@ -25,7 +25,9 @@
 						<li class="{{(strcmp(URL::full(), URL::to('/')) == 0) ? 'active' : ''}}"><a href="{{URL::to('/')}}">ホーム</a></li>
 					</ul>
 					<ul class="right">
+
 						@if(Auth::check())
+							<?php echo 'ユーザーID：'.Auth::user()->id;?>
 
 							<!-- if文の解説：現在ページのliクラスにactiveを付加する -->
 							<li class="{{ (strpos(URL::current(), URL::to('admin/dash-board'))!== false) ? 'active' : '' }}">

@@ -3,8 +3,14 @@
 class PostController extends BaseController{
 
 public function listPost(){
-	// print_r($author->posts);
-	$posts = Post::orderBy('id', 'desc')->paginate(10);
+
+	// AuthユーザーIDを取得する
+	$id = Auth::user()->id;
+
+	// ユーザーIDとauthorIDの等しい記事を取得する
+	$posts = Post::where('author_id', '=', $id)->get();
+
+	// $posts = Post::orderBy('id', 'desc')->paginate(10);
 	$this->layout->title = '記事一覧';
 	$this->layout->main = View::make('dash')->nest('content', 'posts.list', compact('posts'));
 }
@@ -45,6 +51,7 @@ public function savePost(){
 	$valid = Validator::make($post, $rules);
 	if ($valid->passes()) {
 		$post = new Post($post);
+		$post->author_id = Auth::user()->id;
 		$post->comment_count = 0;
 		$post->read_more = (strlen($post->content) > 120) ? sbstr($post->content, 0, 120) : $post->content;
 		$post->save();
