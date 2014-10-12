@@ -8,6 +8,7 @@ public function run(){
 	for( $i = 1 ; $i <= 20 ; $i++) {
 		$post = new Post;
 		$post->title = "$i 番目の投稿";
+		$post->author_id = 1;
 		$post->read_more = substr($content, 0, 120);
 		$post->content = $content;
 		$post->save();
